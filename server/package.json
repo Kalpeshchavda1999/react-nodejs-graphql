@@ -1,0 +1,50 @@
+{
+  "name": "graphql-api",
+  "version": "0.1.0",
+  "description": "API implementation of GraphQL.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node build/index.js",
+    "start:ts": "ts-node src/index.ts",
+    "start:debug": "node --inspect=5858 -r ts-node/register src/index.ts",
+    "dev": "NODE_ENV=development nodemon",
+    "test": "NODE_ENV=test mocha --require=ts-node/register --recursive --exit 'src/**/*.spec.ts'",
+    "compile": "rm -rf build/* && tsc",
+    "normalize": "npm run format && npm run lint",
+    "format": "prettier --write --loglevel=warn 'src/**/*.ts'",
+    "lint": "tslint src/**/*.ts",
+    "deploy": "npm run deploy:dev && npm run deploy:prod",
+    "deploy:dev": "npm run compile && now --local-config=now.dev.json && now alias --local-config=now.dev.json",
+    "deploy:prod": "npm run compile && now --local-config=now.prod.json && now alias --local-config=now.prod.json"
+  },
+  "dependencies": {
+    "@graphql-tools/schema": "^10.0.10",
+    "@graphql-tools/utils": "^10.6.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/graphql": "^14.2.3",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/lodash": "^4.17.13",
+    "apollo-server-express": "^3.13.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "chai": "^5.1.2",
+    "dotenv": "^16.4.6",
+    "express": "^4.21.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.9.0",
+    "graphql-server-express": "^1.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
+    "mongoose": "^8.8.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "mocha": "^11.0.1",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.4.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0"
+  }
+}
