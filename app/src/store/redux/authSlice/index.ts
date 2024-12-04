@@ -3,7 +3,7 @@ import userCreateReducer ,{createUser}from './userExtraReducers';
 import { UserState } from './interface';
 
 const initialState: UserState = {
-  users: [],
+  token: [],
   loading: false,
   error: null,
   creating: false,
