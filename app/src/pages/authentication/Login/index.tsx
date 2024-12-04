@@ -1,43 +1,41 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { FC } from "react";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 import { useAppDispatch } from "../../../store";
-import { createUser } from "../../../store/redux/userSlice/userExtraReducers";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../../store/redux/authSlice/asyncThunk";
+import { ILoginFormValues } from "../../../store/redux/authSlice/interface";
 
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
-
-const validationSchema : Yup.ObjectSchema<LoginFormValues> = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string().required('Required'),
+const validationSchema: Yup.ObjectSchema<ILoginFormValues> = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string().required("Required"),
 });
 
 const Login: FC = () => {
-  
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-
-  const formik = useFormik<LoginFormValues>({
+  const formik = useFormik<ILoginFormValues>({
     initialValues: {
       email: "",
       password: "",
     },
-    validationSchema: validationSchema, 
-    onSubmit: (values) => {
-      dispatch(createUser({
-        email: values.email,
-        password: values.password,
-      }));  
-      alert(JSON.stringify(values, null, 2));
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      await dispatch(
+        login({
+          email: values.email,
+          password: values.password,
+        })
+      );
+      navigate("/");
     },
   });
 
   return (
     <Box>
-      <Container component="main" >
+      <Container component="main">
         <Box
           sx={{
             display: "flex",
@@ -51,7 +49,7 @@ const Login: FC = () => {
         >
           <Typography variant="h3">Login</Typography>
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ mb: 2 , width: "400px" }}>
+            <Box sx={{ mb: 2, width: "400px" }}>
               <TextField
                 label="Email"
                 variant="outlined"
@@ -91,7 +89,7 @@ const Login: FC = () => {
               fullWidth
               sx={{ marginTop: 2 }}
             >
-              Login
+              Submit
             </Button>
           </form>
         </Box>

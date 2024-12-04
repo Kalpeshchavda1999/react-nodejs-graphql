@@ -1,12 +1,14 @@
 // src/app/store.js
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
-import userSlice from "./redux/userSlice";
+import authSlice from "./redux/authSlice";
 import { useDispatch } from "react-redux";
+import clientSlice from "./redux/clientSlice";
 
 const store = configureStore({
   reducer: combineReducers({
-    user : userSlice.reducer,
+    auth : authSlice.reducer,
+    client : clientSlice.reducer
   }),
 });
 

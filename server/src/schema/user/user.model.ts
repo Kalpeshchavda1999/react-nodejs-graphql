@@ -5,7 +5,6 @@ interface IUser extends Document {
   email : string;
   password: string;
   username: string;
-  language: string;
   isModified(path: string): boolean;
 }
 
@@ -20,9 +19,6 @@ const userSchema = new Schema<IUser>({
     required: true,
   },
   username: {
-    type: String,
-  },
-  language: {
     type: String,
   },
 });
@@ -41,10 +37,13 @@ userSchema.pre('save', function(next) {
       .catch(next);
   }
 });
+
 userSchema.set('toObject', { virtuals: true });
+
 userSchema.method('toGraph', function toGraph(this: any) {
   return JSON.parse(JSON.stringify(this));
 });
+
 userSchema.method('comparePassword', function comparePassword(
   this: any,
   candidate: string

@@ -6,10 +6,12 @@ import config from "./config";
 import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server-express";
 import bodyParser from "body-parser";
+import router from "./routes/auth.routes";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(router);
 
 const server = new ApolloServer({
   schema,
@@ -29,7 +31,7 @@ mongoose.connect(config.mongodb.uri).then(
   () => {
     app.listen(config.port, () => {
       console.log(
-        `🚀 Apollo Web Client ready at http://localhost:${config.port}${server.graphqlPath}`
+        `🚀 Apollo Web IClient ready at http://localhost:${config.port}${server.graphqlPath}`
       );
     });
   },

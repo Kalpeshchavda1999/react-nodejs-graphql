@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import userCreateReducer ,{createUser}from './userExtraReducers';
-import { UserState } from './interface';
+import userCreateReducer from './authExtraReducers';
+import { IAuthState } from './interface';
 
-const initialState: UserState = {
-  token: [],
+const initialState: IAuthState = {
+  token: "",
   loading: false,
   error: null,
   creating: false,
@@ -18,9 +18,5 @@ const userSlice = createSlice({
     userCreateReducer(builder);
   },
 });
-
-export const userActions = {
-  createUser,
-};
 
 export default userSlice;

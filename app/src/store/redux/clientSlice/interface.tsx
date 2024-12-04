@@ -1,16 +1,16 @@
-export interface CreateUserPayload {
+export interface ICreateClientPayload {
   email: string;
   password: string;
 }
 
-export interface User {
+export interface IClient {
   id: string;
   name: string;
   email: string;
 }
 
-export interface UserState {
-  users: User[];
+export interface IClientState {
+  clients: IClient[];
   loading: boolean;
   error: string | null;
   creating: boolean;
