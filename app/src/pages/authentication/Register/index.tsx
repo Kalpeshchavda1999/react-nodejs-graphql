@@ -1,21 +1,35 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { FC } from "react";
 import * as Yup from "yup";
 import { useAppDispatch } from "../../../store";
 import { useNavigate } from "react-router-dom";
 import { IRegisterFormValues } from "../../../store/redux/authSlice/interface";
 import { register } from "../../../store/redux/authSlice/asyncThunk";
+import React from "react";
 
 const validationSchema: Yup.ObjectSchema<IRegisterFormValues> =
   Yup.object().shape({
-    name: Yup.string().required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string().required("Required"),
-    confirmPassword: Yup.string().required("Required"),
+    username: Yup.string()
+      .required("Username is required")
+      .min(3, "Username must be at least 3 characters"), // Add minimum length requirement for username
+
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+
+    password: Yup.string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters") // Add minimum length for password
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter") // Optional: ensure password has at least one uppercase letter
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter") // Optional: ensure password has at least one lowercase letter
+      .matches(/[0-9]/, "Password must contain at least one number"), // Optional: ensure password has at least one number
+
+    confirmPassword: Yup.string()
+      .required("Confirm Password is required")
+      .oneOf([Yup.ref("password"), null], "Passwords must match"), // Ensure confirmPassword matches password
   });
 
-const Register: FC = () => {
+const Register: React.FC  = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -28,13 +42,15 @@ const Register: FC = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      await dispatch(
+      const result = await dispatch(
         register({
           username: values.username,
           email: values.email,
           password: values.password,
         })
       );
+      console.log('result',result);
+      
       navigate("/");
     },
   });
@@ -55,7 +71,6 @@ const Register: FC = () => {
         >
           <Typography variant="h3">Register</Typography>
           <form onSubmit={formik.handleSubmit}>
-
             <Box sx={{ mb: 2, width: "400px" }}>
               <TextField
                 label="User Name"
@@ -66,7 +81,9 @@ const Register: FC = () => {
                 value={formik.values.username}
                 onChange={formik.handleChange}
                 required
-                error={formik.touched.username && Boolean(formik.errors.username)}
+                error={
+                  formik.touched.username && Boolean(formik.errors.username)
+                }
                 helperText={formik.touched.username && formik.errors.username}
               />
             </Box>
@@ -104,7 +121,6 @@ const Register: FC = () => {
               />
             </Box>
 
-
             <Box sx={{ mb: 2, width: "400px" }}>
               <TextField
                 label="Confirm Password"
@@ -117,9 +133,13 @@ const Register: FC = () => {
                 onChange={formik.handleChange}
                 required
                 error={
-                  formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
+                  formik.touched.confirmPassword &&
+                  Boolean(formik.errors.confirmPassword)
                 }
-                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                helperText={
+                  formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword
+                }
               />
             </Box>
 
@@ -131,6 +151,17 @@ const Register: FC = () => {
               sx={{ marginTop: 2 }}
             >
               Submit
+            </Button>
+
+            <Button
+              type="button"
+              variant="contained"
+              color="secondary"
+              fullWidth
+              sx={{ marginTop: 2 }}
+              onClick={() => navigate("/login")}
+            >
+              Already have an account? Login
             </Button>
           </form>
         </Box>

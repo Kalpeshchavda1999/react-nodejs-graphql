@@ -1,18 +1,20 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { FC } from "react";
 import * as Yup from "yup";
 import { useAppDispatch } from "../../../store";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../store/redux/authSlice/asyncThunk";
 import { ILoginFormValues } from "../../../store/redux/authSlice/interface";
+import React from "react";
 
-const validationSchema: Yup.ObjectSchema<ILoginFormValues> = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().required("Required"),
-});
+const validationSchema: Yup.ObjectSchema<ILoginFormValues> = Yup.object().shape(
+  {
+    email: Yup.string().email("Invalid email").required("Required"),
+    password: Yup.string().required("Required"),
+  }
+);
 
-const Login: FC = () => {
+const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -90,6 +92,17 @@ const Login: FC = () => {
               sx={{ marginTop: 2 }}
             >
               Submit
+            </Button>
+
+            <Button
+              type="button"
+              variant="contained"
+              color="secondary"
+              fullWidth
+              sx={{ marginTop: 2 }}
+              onClick={() => navigate("/register")}
+            >
+              Register
             </Button>
           </form>
         </Box>

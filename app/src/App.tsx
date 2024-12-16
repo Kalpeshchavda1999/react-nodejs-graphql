@@ -1,19 +1,21 @@
 import { RouterProvider } from "react-router-dom";
-import "./App.css";
 import router from "./routes";
 import ScrollTop from "./components/ScrollTop";
 import { ThemeContextProvider } from "./context/ThemeContext";
 import { Provider } from "react-redux";
-import store from "./store";
+import store, { persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   return (
     <Provider store={store}>
-      <ThemeContextProvider>
-        <ScrollTop>
-          <RouterProvider router={router} />
-        </ScrollTop>
-      </ThemeContextProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeContextProvider>
+          <ScrollTop>
+            <RouterProvider router={router} />
+          </ScrollTop>
+        </ThemeContextProvider>
+      </PersistGate>
     </Provider>
   );
 }

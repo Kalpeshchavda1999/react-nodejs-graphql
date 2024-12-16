@@ -1,9 +1,9 @@
 import { createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import client from "../../../graphql/apolloClient";
-import { CREATE_CLIENT } from "../../../graphql/queries";
 import { IClient, IClientState, ICreateClientPayload } from "./interface";
 import { ApolloError } from "@apollo/client";
 import { IRejectedValue } from "../../interface";
+import { CREATE_CLIENT } from "./queries";
+import client from "../../apolloClient";
 
 const createClient = createAsyncThunk<
   IClient,

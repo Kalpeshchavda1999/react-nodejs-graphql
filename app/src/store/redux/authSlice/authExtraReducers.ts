@@ -1,27 +1,48 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { register } from "./asyncThunk";
+import { login, register } from "./asyncThunk";
+import { IAuthState } from "./interface";
 
-// Properly typed reducer for the user slice
-const userCreateReducer = (builder: any) => {
+const registerReducer = (builder: any) => {
   builder
-    .addCase(register.pending, (state: UserState) => {
+    .addCase(register.pending, (state: IAuthState) => {
       state.creating = true;
     })
     .addCase(
       register.fulfilled,
-      (state: UserState, action: PayloadAction<User>) => {
+      (state: IAuthState, action: PayloadAction<IAuthState>) => {
         state.creating = false;
-        state.users.push(action.payload); // Add the newly created user to the list
+        state.user = action.payload.user;
       }
     )
     .addCase(
       register.rejected,
-      (state: UserState, action: PayloadAction<string>) => {
-        // Payload should be a string here
+      (state: IAuthState, action: PayloadAction<string>) => {
         state.creating = false;
-        state.error = action.payload; // Handle error message
+        state.error = action.payload; 
       }
     );
 };
 
-export default userCreateReducer;
+
+const loginReducer = (builder: any) => {
+  builder
+    .addCase(login.pending, (state: IAuthState) => {
+      state.creating = true;
+    })
+    .addCase(
+      login.fulfilled,
+      (state: IAuthState, action: PayloadAction<IAuthState>) => {
+        state.creating = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+      }
+    )
+    .addCase(
+      login.rejected,
+      (state: IAuthState, action: PayloadAction<string>) => {
+        state.creating = false;
+        state.error = action.payload; 
+      }
+    );
+};
+export {registerReducer,loginReducer};

@@ -1,5 +1,12 @@
+export interface IUser {
+  id: number;
+  email: string;
+  username: string;
+}
+
 export interface IAuthState {
   token: string | null;
+  user: IUser | null;
   loading: boolean;
   error: string | null;
   creating: boolean;
