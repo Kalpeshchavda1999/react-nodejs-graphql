@@ -4,6 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../store";
 import { logout } from "../../../store/redux/authSlice";
+import routes from "../../../constants/routes";
 
 const Header: React.FC = () => {
   const drawerWidth = 240;
@@ -27,7 +28,7 @@ const Header: React.FC = () => {
         }}
         onClick = {() => {  
           dispatch(logout());
-          navigate('/login')
+          navigate(routes.LOGIN);
         }}
         >
           <Logout />

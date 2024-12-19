@@ -10,23 +10,22 @@ import ListItemText from "@mui/material/ListItemText";
 import GroupIcon from "@mui/icons-material/Group";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
+import routes from "../../../constants/routes";
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("🚀 ~ location:", location)
 
   const items = [
     {
       name: "Clients",
       icon: <GroupIcon />,
-      path: "/",
+      path:  routes.CLIENTS,
     },
     {
       name: "Projects",
       icon: <InboxIcon />,
-      path: "/projects",
+      path: routes.PROJECTS,
     },
   ];
 

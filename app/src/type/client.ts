@@ -1,10 +1,9 @@
 export interface ICreateClientPayload {
+  name: string;
   email: string;
-  password: string;
 }
 
 export interface IClient {
-  id: string;
   name: string;
   email: string;
 }

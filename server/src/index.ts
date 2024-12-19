@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import { ApolloServer } from "apollo-server-express";
 import bodyParser from "body-parser";
 import router from "./routes/auth.routes";
+import authMiddleware from "./utils/auth";
 
 const app = express();
 app.use(cors());
@@ -19,7 +20,7 @@ const server = new ApolloServer({
     console.warn(error);
     return error;
   },
-  // context: authMiddleware,
+  context: authMiddleware,
 });
 async function startServer() {
   await server.start();

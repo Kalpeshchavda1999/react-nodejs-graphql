@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../store";
 import { useEffect } from "react";
+import routes from "../../constants/routes";
 
 const AuthLayout = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ const AuthLayout = () => {
   
   useEffect(() => {
     if(token) {
-      navigate('/');
+      navigate(routes.CLIENTS);
     }
   },[])
 

@@ -1,21 +1,26 @@
-import DashboardLayout from '../layout/DashboardLayout';
-import Client from '../pages/Client';
-import Project from '../pages/Project';
-
+import routes from "../constants/routes";
+import DashboardLayout from "../layout/DashboardLayout";
+import Client from "../pages/Client";
+import CreateClient from "../pages/CreateClient";
+import Project from "../pages/Project";
 
 const MainRoutes = {
-  path: '/',
+  path: "/",
   element: <DashboardLayout />,
   children: [
     {
-      path: '/',
-      element: <Client />
+      path: routes.CLIENTS,
+      element: <Client />,
     },
     {
-      path: '/projects',
-      element: <Project />  
+      path: routes.CREATE_CLIENT,
+      element: <CreateClient />,
     },
-  ]
+    {
+      path: routes.PROJECTS,
+      element: <Project />,
+    },
+  ],
 };
 
 export default MainRoutes;

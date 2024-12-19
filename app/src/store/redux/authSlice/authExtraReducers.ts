@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { login, register } from "./asyncThunk";
-import { IAuthState } from "./interface";
+import { IAuthState } from "../../../type/auth";
 
 const registerReducer = (builder: any) => {
   builder

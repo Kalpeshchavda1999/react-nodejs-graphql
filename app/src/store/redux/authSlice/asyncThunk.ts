@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ILoginFormValues, IRegisterPayload, IResponse } from "./interface";
-import axiosInstance from "../../axiosInstance";
 import axios from "axios";
+import axiosInstance from "../../../utils/axiosInstance";
 
 const login = createAsyncThunk<
   IResponse,

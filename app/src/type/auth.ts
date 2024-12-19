@@ -22,20 +22,20 @@ export interface IResponse {
   };
 }
 
-export interface ILoginFormValues  {
+export interface ILoginFormValues {
   email: string;
   password: string;
-};
+}
 
-export interface IRegisterFormValues  {
+export interface IRegisterFormValues {
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
-};
+}
 
 export interface IRegisterPayload {
   username: string;
   email: string;
   password: string;
-};
+}

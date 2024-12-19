@@ -1,43 +1,18 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import config from "./../../config";
-import User, { IUser, IUserModel } from "../../schema/user/user.model";
+import User from "../../schema/user/user.model";
 import { Request, Response } from "express";
+import { IUserModel } from "../../type/user";
+import {
+  IAuthenticatedPayload,
+  ICreateTokenResult,
+  IErrorResponse,
+  ILoginRequestBody,
+  ILoginResponse,
+  IRegisterRequestBody,
+} from "../../type/auth";
 
 const { secret, expire } = config.token;
-
-interface IAuthenticatedPayload extends JwtPayload {
-  email: string;
-}
-
-interface IRegisterRequestBody {
-  username: string;
-  email: string;
-  password: string;
-}
-
-interface ILoginRequestBody {
-  email: string;
-  password: string;
-}
-
-interface ILoginResponse {
-  token: string;
-  user: object;
-}
-
-interface IVerifyTokenResponse {
-  data: any; // Custom object depending on your authentication logic
-}
-
-interface ICreateTokenResult {
-  token: string;
-  user: object;
-}
-
-interface IErrorResponse {
-  message: string;
-  error?: string | undefined;
-}
 
 export async function register(
   req: Request<{}, {}, IRegisterRequestBody>,

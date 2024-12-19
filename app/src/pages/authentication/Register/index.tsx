@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { IRegisterFormValues } from "../../../store/redux/authSlice/interface";
 import { register } from "../../../store/redux/authSlice/asyncThunk";
 import React from "react";
+import routes from "../../../constants/routes";
 
 const validationSchema: Yup.ObjectSchema<IRegisterFormValues> =
   Yup.object().shape({
@@ -48,10 +49,8 @@ const Register: React.FC  = () => {
           email: values.email,
           password: values.password,
         })
-      );
-      console.log('result',result);
-      
-      navigate("/");
+      );      
+      navigate(routes.CLIENTS);
     },
   });
 
@@ -159,7 +158,7 @@ const Register: React.FC  = () => {
               color="secondary"
               fullWidth
               sx={{ marginTop: 2 }}
-              onClick={() => navigate("/login")}
+              onClick={() => navigate(routes.LOGIN)}
             >
               Already have an account? Login
             </Button>

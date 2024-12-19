@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IClientState } from '../../../type/client';
 import { clientCreateReducer } from './clientExtraReducers';
+import { projectCreateReducer } from './projectExtraReducers';
 
 const initialState: IClientState = {
   clients: [],
@@ -15,7 +16,7 @@ const clientSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    clientCreateReducer(builder);
+    projectCreateReducer(builder)    
   },
 });
 export default clientSlice;

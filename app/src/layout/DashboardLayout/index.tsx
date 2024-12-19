@@ -4,16 +4,16 @@ import { RootState, useAppSelector } from "../../store";
 import { useEffect } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import routes from "../../constants/routes";
 
 
-export default function DashboardLayout() {
+const  DashboardLayout = () => {
   const navigate = useNavigate();
   const token = useAppSelector((state: RootState) => state.auth.token);
 
- 
   useEffect(() => {
     if(token === null || token === '') {
-      navigate('/login');
+      navigate(routes.LOGIN);
     }
   },[])
 
@@ -34,3 +34,5 @@ export default function DashboardLayout() {
     </Box>
   );
 }
+
+export default DashboardLayout

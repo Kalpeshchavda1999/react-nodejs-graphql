@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../../store/redux/authSlice/asyncThunk";
 import { ILoginFormValues } from "../../../store/redux/authSlice/interface";
 import React from "react";
+import routes from "../../../constants/routes";
 
 const validationSchema: Yup.ObjectSchema<ILoginFormValues> = Yup.object().shape(
   {
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
           password: values.password,
         })
       );
-      navigate("/");
+      navigate(routes.CLIENTS);
     },
   });
 
@@ -100,7 +101,7 @@ const Login: React.FC = () => {
               color="secondary"
               fullWidth
               sx={{ marginTop: 2 }}
-              onClick={() => navigate("/register")}
+              onClick={() => navigate(routes.REGISTER)}
             >
               Register
             </Button>
